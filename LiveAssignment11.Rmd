@@ -15,7 +15,7 @@ Load ffp and it's dependencies
 ```
 
 <<todo>> add information about data <<todos>>
-Load in ukcars dataset which is inlcuded in fpp library
+Load in ukcars dataset which is included in fpp library
 ```{r }
   data(ukcars)
 ```
@@ -33,7 +33,7 @@ Plot ukcars time-series
   plot(ukcars)
 ```
 
-It's difficult from the plot to identiy any seasonal trends. There is clear a downward trend from the starting year, 1977, to around 1981, at which the trend changes direction. This trends continues tunil around the year 2000, at which it changes direction towards a downward trend. There are clearly season dips in the series, but the pravaliing upward tred makes it difficult to identify.
+It's difficult from the plot to identify any seasonal trends. There is clear a downward trend from the starting year, 1977, to around 1981, at which the trend changes direction. This trends continues tunil around the year 2000, at which it changes direction towards a downward trend. There are clearly season dips in the series, but the prevailing upward trend makes it difficult to identify.
 
 ## Part B
 ```{r }
@@ -41,12 +41,12 @@ It's difficult from the plot to identiy any seasonal trends. There is clear a do
   plot(fitcars)
 ```
 
-Using a classical decomposition of additive method we are able to larger trend-cycle and seasonal indicies more easily. For trends, we see a plot that is similar to the plot from part A, but smoothed out. We see a turn down at the start of the data, 1977, a change up in 1980, another slight change down in the late 90s, which levels off in the early 2000s.
+Using a classical decomposition of additive method, we can larger trend-cycle and seasonal indices more easily. For trends, we see a plot that is like the plot from part A, but smoothed out. We see a turn down at the start of the data, 1977, a change up in 1980, another slight change down in the late 90s, which levels off in the early 2000s.
 
-For season indicies, the seasonal plot indicates a yearly cycle pattern. The seasonal cycle fluxuates between 20 and -50.
+For season indices, the seasonal plot indicates a yearly cycle pattern. The seasonal cycle fluctuates between 20 and -50.
 
 ## Part C
-Yes, there are clearly small seasonal turns in direction identifiable in plot from part A. Although, it's difficult to identify cycle and indicies. 
+Yes, there are clearly small seasonal turns in direction identifiable in plot from part A. Although, it's difficult to identify cycle and indices. 
 
 ## Part D
 Compute and plot the seasonally adjusted data. 
@@ -72,11 +72,11 @@ plot(fitcarsseason)
   ukcars[60] <- originalval
   fitcarsseason <- seasadj(decompose(ukcars))
 ```
-The outliers change the plot dramatically. Even with smoothing, decompositon, and seasonal adjustment, the exsistent of the outliers cauases a significant change in direction of the trend.
+The outliers change the plot dramatically. Even with smoothing, decomposition, and seasonal adjustment, the existent of the outliers causes a significant change in direction of the trend.
 
 
 ## Part F
-Update value in the begginging 
+Update value in the beginning 
 ```{r}
   ukcars.partf.begin <- ukcars
   ukcars.partf.begin[5] <- 500
@@ -89,9 +89,15 @@ Update value towards the end of the series
   plot(seasadj(decompose(ukcars.partf.end)))
 ```
 
-It does effect the the seasonly adjust plot of the outlier appears at the begining or end vs the middle.  
+It does affect the seasonally adjusted plot if the outlier appears at the beginning or end vs the middle.  
 
 ## Part G
+Plot Seasonal and Trend decomposition using Loess for ukcars data
+```{r}
+  ukcars.stl <- stl(ukcars,s.window=5)
+  plot(ukcars.stl)
+```
+
 
 
 
