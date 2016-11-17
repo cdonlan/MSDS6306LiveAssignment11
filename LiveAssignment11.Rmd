@@ -89,6 +89,8 @@ Update value towards the end of the series
   plot(seasadj(decompose(ukcars.partf.end)))
 ```
 
+It does effect the the seasonly adjust plot of the outlier appears at the begining or end vs the middle.  
+
 ## Part G
 
 
