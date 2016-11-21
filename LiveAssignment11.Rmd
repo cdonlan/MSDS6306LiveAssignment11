@@ -2,25 +2,32 @@
 title: "Live Assignment 11"
 author: "Chris Donlan"
 date: "November 16, 2016"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,warning=FALSE)
 ```
 
-Load ffp and it's dependencies 
+##Overview
+This project demostrates working with timeseries data in R. The data for this project is found in the "expsmooth" library. It contains UK passenger vehicel prodction between the years 1977 and 2005. 
+
+The source of the data is:
+yndman, R.J., Koehler, A.B., Ord, J.K., and Snyder, R.D., (2008) Forecasting with exponential smoothing: the state space approach, Springer
+
+
+
+Load ffp and it's dependencies. 
 ```{r }
   library(fpp) 
 ```
 
-<<todo>> add information about data <<todos>>
-Load in ukcars dataset which is included in fpp library
+Load in ukcars dataset which is included in expsmooth library, a library fpp is dependent on. 
 ```{r }
   data(ukcars)
 ```
 
-Print out str and first few row of ukcars
+Print out str and first few row of ukcars.
 ```{r}
   str(ukcars)
   head(ukcars)
@@ -28,9 +35,9 @@ Print out str and first few row of ukcars
 
 ## Part A
 
-Plot ukcars time-series
+Plot ukcars time-series.
 ```{r }
-  plot(ukcars)
+  plot(ukcars,col="blue",main="UK passenger vehicle production",ylab="Thousands of cars",xlab="Year")
 ```
 
 It's difficult from the plot to identify any seasonal trends. There is clear a downward trend from the starting year, 1977, to around 1981, at which the trend changes direction. This trends continues tunil around the year 2000, at which it changes direction towards a downward trend. There are clearly season dips in the series, but the prevailing upward trend makes it difficult to identify.
@@ -38,10 +45,10 @@ It's difficult from the plot to identify any seasonal trends. There is clear a d
 ## Part B
 ```{r }
   fitcars <- decompose(ukcars)
-  plot(fitcars)
+  plot(fitcars,col="blue")
 ```
 
-Using a classical decomposition of additive method, we can larger trend-cycle and seasonal indices more easily. For trends, we see a plot that is like the plot from part A, but smoothed out. We see a turn down at the start of the data, 1977, a change up in 1980, another slight change down in the late 90s, which levels off in the early 2000s.
+Using a classical decomposition of additive method, we can see larger trend-cycle and seasonal indices more easily. For trends, we see a plot that is like the plot from part A, but smoothed out. We see a turn down at the start of the data, 1977, a change up in 1980, another slight change down in the late 90s, which levels off in the early 2000s.
 
 For season indices, the seasonal plot indicates a yearly cycle pattern. The seasonal cycle fluctuates between 20 and -50.
 
@@ -52,7 +59,7 @@ Yes, there are clearly small seasonal turns in direction identifiable in plot fr
 Compute and plot the seasonally adjusted data. 
 ```{r }
 fitcarsseason <- seasadj(fitcars)
-plot(fitcarsseason)
+plot(fitcarsseason, col="purple",main="UK passenger vehicle production seasonally adjusted",ylab="Thousands of cars",xlab="Year")
 ```
 
 ## Part E
@@ -66,7 +73,7 @@ plot(fitcarsseason)
   
   #Recompute seasonal adjustment and plot
   fitcarsseason <- seasadj(decompose(ukcars))
-  plot(fitcarsseason)
+  plot(fitcarsseason, col="purple",main="UK passenger vehicle production with outlier",ylab="Thousands of cars",xlab="Year")
   
   #change it back to the original value
   ukcars[60] <- originalval
@@ -80,22 +87,22 @@ Update value in the beginning
 ```{r}
   ukcars.partf.begin <- ukcars
   ukcars.partf.begin[5] <- 500
-  plot(seasadj(decompose(ukcars.partf.begin)))
+  plot(seasadj(decompose(ukcars.partf.begin)),col="purple",main="UK passenger vehicle production with earlier outlier",ylab="Thousands of cars",xlab="Year")
 ```
 Update value towards the end of the series
 ```{r}
   ukcars.partf.end <- ukcars
   ukcars.partf.end[95] <- 500
-  plot(seasadj(decompose(ukcars.partf.end)))
+  plot(seasadj(decompose(ukcars.partf.end)), col="purple",main="UK passenger vehicle production with later outlier",ylab="Thousands of cars",xlab="Year")
 ```
 
 It does affect the seasonally adjusted plot if the outlier appears at the beginning or end vs the middle.  
 
 ## Part G
-Plot Seasonal and Trend decomposition using Loess for ukcars data
+Plot Seasonal and Trend decomposition using Loess for ukcars data.
 ```{r}
   ukcars.stl <- stl(ukcars,s.window=5)
-  plot(ukcars.stl)
+  plot(ukcars.stl,col="blue")
 ```
 
 
